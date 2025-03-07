@@ -88,14 +88,13 @@ namespace SomeRandomBenchmark
     }
     public class MonoModBenchmark2
     {
-        delegate int basetype(int a, int b, int c, int d, int e, int f, int g);
         Hook a, b, c, d;
         ILHook e;
         [GlobalSetup]
         public void Setup()
         {
 
-            static int target(basetype orig,
+            static int target(Basetype orig,
                 int a, int b, int c, int d, int e, int f, int g) => orig(a, b, c, d, e, f, g);
 
             a = new(typeof(MonoModBenchmark2).GetMethod(nameof(_Hook1)), target);
@@ -108,8 +107,8 @@ namespace SomeRandomBenchmark
             hook1d = (a, b, c, d, e, f, g) => hook1(a, b, c, d, e, f, g);
         }
 
-        basetype hook1 = _Hook1;
-        basetype hook1d;
+        Basetype hook1 = _Hook1;
+        Basetype hook1d;
         [Benchmark]
         public int Hook1d()
         {
