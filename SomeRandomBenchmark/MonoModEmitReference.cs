@@ -36,6 +36,7 @@ namespace SomeRandomBenchmark
         Objtype emptyo = _EmptyO;
         Basetype emitint = _EmitHook;
         Objtype emitobj = _EmitObjHook;
+
         [Benchmark]
         public int Standard()
         {
@@ -65,7 +66,7 @@ namespace SomeRandomBenchmark
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int[] _EmptyO(int a, int b, int c, int d, int e, int f, int g)
         {
-            return [e];
+            return [];
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _EmitHook(int a, int b, int c, int d, int e, int f, int g)

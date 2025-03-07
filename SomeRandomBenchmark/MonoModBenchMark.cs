@@ -12,7 +12,7 @@ namespace SomeRandomBenchmark
     public class MonoModBenchmark
     {
         Hook a;
-        ILHook b, c;
+        ILHook b;
         [GlobalSetup]
         public void Setup()
         {
