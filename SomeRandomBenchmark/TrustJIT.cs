@@ -74,7 +74,8 @@ namespace SomeRandomBenchmark
 
         class For
         {
-            public int Method(int a, int b, int c, int d, int e, int f, int g)
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            public static int Method(int a, int b, int c, int d, int e, int f, int g)
             {
                 return e;
             }
@@ -86,20 +87,20 @@ namespace SomeRandomBenchmark
             [MethodImpl(MethodImplOptions.NoInlining)]
             public int NoInlining(int a, int b, int c, int d, int e, int f, int g)
             {
-                return For.Instance.Method(a, b, c, d, e, f, g);
+                return For.Method(a, b, c, d, e, f, g);
             }
             public static int Static(int a, int b, int c, int d, int e, int f, int g)
             {
-                return For.Instance.Method(a, b, c, d, e, f, g);
+                return For.Method(a, b, c, d, e, f, g);
             }
             public int Instanced(int a, int b, int c, int d, int e, int f, int g)
             {
-                return For.Instance.Method(a, b, c, d, e, f, g);
+                return For.Method(a, b, c, d, e, f, g);
             }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public int Aggressive(int a, int b, int c, int d, int e, int f, int g)
             {
-                return For.Instance.Method(a, b, c, d, e, f, g);
+                return For.Method(a, b, c, d, e, f, g);
             }
         }
         [Benchmark]

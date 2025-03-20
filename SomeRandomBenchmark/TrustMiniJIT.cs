@@ -74,7 +74,8 @@ namespace SomeRandomBenchmark
 
         class For
         {
-            public int Method(int e)
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            public static int Method(int e)
             {
                 return e;
             }
@@ -86,20 +87,20 @@ namespace SomeRandomBenchmark
             [MethodImpl(MethodImplOptions.NoInlining)]
             public int NoInlining(int e)
             {
-                return For.Instance.Method(e);
+                return For.Method(e);
             }
             public static int Static(int e)
             {
-                return For.Instance.Method(e);
+                return For.Method(e);
             }
             public int Instanced(int e)
             {
-                return For.Instance.Method(e);
+                return For.Method(e);
             }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public int Aggressive(int e)
             {
-                return For.Instance.Method(e);
+                return For.Method(e);
             }
         }
         [Benchmark]
