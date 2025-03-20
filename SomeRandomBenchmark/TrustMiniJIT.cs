@@ -81,7 +81,7 @@ namespace SomeRandomBenchmark
             }
             public static For Instance = new();
         }
-        class Simulator
+        sealed class Simulator
         {
             public static Simulator Instance = new();
             [MethodImpl(MethodImplOptions.NoInlining)]
