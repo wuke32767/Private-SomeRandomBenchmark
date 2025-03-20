@@ -6,8 +6,11 @@ if (false)
 {
     BenchmarkRunner.Run<MonoModBenchmark>();
     BenchmarkRunner.Run<MonoModBenchmark2>();
-}
-else
-{
     BenchmarkRunner.Run<MonoModEmitReference>();
+}
+if (true)
+{
+    BenchmarkRunner.Run<GetTypeBenchmark>();
+    BenchmarkRunner.Run<TrustJIT>();
+    BenchmarkRunner.Run<TrustMiniJIT>();
 }
