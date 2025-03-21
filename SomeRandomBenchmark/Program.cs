@@ -8,9 +8,10 @@ if (false)
     BenchmarkRunner.Run<MonoModBenchmark2>();
     BenchmarkRunner.Run<MonoModEmitReference>();
     BenchmarkRunner.Run<GetTypeBenchmark>();
+    BenchmarkRunner.Run<TrustJIT>();
+    BenchmarkRunner.Run<TrustMiniJIT>();
 }
 if (true)
 {
-    BenchmarkRunner.Run<TrustJIT>();
-    BenchmarkRunner.Run<TrustMiniJIT>();
+    BenchmarkRunner.Run<TrustJIT_MyEmitDelegate>();
 }
