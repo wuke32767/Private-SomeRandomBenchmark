@@ -35,6 +35,17 @@ namespace SomeRandomBenchmark
                 var gx = b - d * a;
                 return ax * bx - cx % dx == gx - ex - bx ? fx + cx * dx : ax + gx - 4;
             }
+            public static int wtfs(int a, int b, int c, int d, int e, int f, int g)
+            {
+                var ax = 8 * c;
+                var dx = e + f;
+                var bx = f - b + 3;
+                var cx = d + e;
+                var fx = a * a - g;
+                var ex = d + c + e + g;
+                var gx = b - d * a;
+                return ax * bx - cx % dx == gx - ex - bx ? fx + cx * dx : ax + gx - 4;
+            }
         }
         [GlobalSetup]
         public void Setup()
@@ -109,6 +120,11 @@ namespace SomeRandomBenchmark
             return _Standard(1, 9, 1, 9, 8, 1, 0);
         }
         [Benchmark]
+        public int StandardStatic()
+        {
+            return _StandardStatic(1, 9, 1, 9, 8, 1, 0);
+        }
+        [Benchmark]
         public int Standard2()
         {
             return _Standard2(1, 9, 1, 9, 8, 1, 0);
@@ -132,6 +148,11 @@ namespace SomeRandomBenchmark
         public static int _Standard(int a, int b, int c, int d, int e, int f, int g)
         {
             return wtf(a, b, c, d, e, f, g);
+        }
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static int _StandardStatic(int a, int b, int c, int d, int e, int f, int g)
+        {
+            return Wtf.wtfs(a, b, c, d, e, f, g);
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Standard2(int a, int b, int c, int d, int e, int f, int g)
