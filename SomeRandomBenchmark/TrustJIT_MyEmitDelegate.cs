@@ -19,7 +19,7 @@ namespace SomeRandomBenchmark
             return 0;
         }
 
-        ILHook a, b, c, d, e;
+        ILHook a, b, c, d, e, f;
         static Basetype wtf = Wtf.Instance.wtf;
         sealed class Wtf
         {
@@ -60,6 +60,9 @@ namespace SomeRandomBenchmark
                 u(ic);
                 ic.EmitRet();
             };
+            f = new(typeof(TrustJIT_MyEmitDelegate).GetMethod(nameof(_StandardStatic)), i =>
+            {
+            });
             a = new(typeof(TrustJIT_MyEmitDelegate).GetMethod(nameof(_Standard)), i =>
             {
                 ILCursor ic = new(i);
