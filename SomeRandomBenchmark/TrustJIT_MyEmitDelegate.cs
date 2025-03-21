@@ -26,25 +26,12 @@ namespace SomeRandomBenchmark
             public static Wtf Instance = new();
             public int wtf(int a, int b, int c, int d, int e, int f, int g)
             {
-                var ax = 8 * c;
-                var dx = e + f;
-                var bx = f - b + 3;
-                var cx = d + e;
-                var fx = a * a - g;
-                var ex = d + c + e + g;
-                var gx = b - d * a;
-                return ax * bx - cx % dx == gx - ex - bx ? fx + cx * dx : ax + gx - 4;
+                return a + b + c + d + e + f + g;
             }
+
             public static int wtfs(int a, int b, int c, int d, int e, int f, int g)
             {
-                var ax = 8 * c;
-                var dx = e + f;
-                var bx = f - b + 3;
-                var cx = d + e;
-                var fx = a * a - g;
-                var ex = d + c + e + g;
-                var gx = b - d * a;
-                return ax * bx - cx % dx == gx - ex - bx ? fx + cx * dx : ax + gx - 4;
+                return a + b + c + d + e + f + g;
             }
         }
         [GlobalSetup]
@@ -53,12 +40,14 @@ namespace SomeRandomBenchmark
             ILContext.Manipulator manip(Action<ILCursor> u) => i =>
             {
                 ILCursor ic = new(i);
+                ic.GotoNext(MoveType.After, i => i.MatchLdarg(4));
+                ic.GotoNext(MoveType.Before, i => i.MatchLdarg(4));
+                ic.Remove();
                 for (var x = 0; x != 7; x++)
                 {
                     ic.EmitLdarg(x);
                 }
                 u(ic);
-                ic.EmitRet();
             };
             f = new(typeof(TrustJIT_MyEmitDelegate).GetMethod(nameof(_StandardStatic)), i =>
             {
@@ -94,7 +83,6 @@ namespace SomeRandomBenchmark
                         ic.EmitLdloc(item);
                     }
                     ic.EmitCallvirt(wtf.Method);
-                    ic.EmitRet();
                 }));
             e = new(typeof(TrustJIT_MyEmitDelegate).GetMethod(nameof(_MineStatic)),
                 manip(ic =>
@@ -113,7 +101,6 @@ namespace SomeRandomBenchmark
                         ic.EmitLdloc(item);
                     }
                     ic.EmitCall(wtf.Method);
-                    ic.EmitRet();
                 }));
         }
 
@@ -150,32 +137,74 @@ namespace SomeRandomBenchmark
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Standard(int a, int b, int c, int d, int e, int f, int g)
         {
-            return wtf(a, b, c, d, e, f, g);
+            var ax = 5 * a;
+            var bx = b + c;
+            var cx = d - e;
+            var dx = f * g;
+            var ex = a + b + c;
+            var fx = d - wtf(a, b, c, d, e, f, g) + f;
+            var gx = g * a - b;
+            return ax + bx - cx * dx == ex - fx + gx ? ax * bx + cx : dx - ex + fx;
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _StandardStatic(int a, int b, int c, int d, int e, int f, int g)
         {
-            return Wtf.wtfs(a, b, c, d, e, f, g);
+            var ax = 5 * a;
+            var bx = b + c;
+            var cx = d - e;
+            var dx = f * g;
+            var ex = a + b + c;
+            var fx = d - Wtf.wtfs(a, b, c, d, e, f, g) + f;
+            var gx = g * a - b;
+            return ax + bx - cx * dx == ex - fx + gx ? ax * bx + cx : dx - ex + fx;
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Standard2(int a, int b, int c, int d, int e, int f, int g)
         {
-            return Wtf.Instance.wtf(a, b, c, d, e, f, g);
+            var ax = 5 * a;
+            var bx = b + c;
+            var cx = d - e;
+            var dx = f * g;
+            var ex = a + b + c;
+            var fx = d - Wtf.Instance.wtf(a, b, c, d, e, f, g) + f;
+            var gx = g * a - b;
+            return ax + bx - cx * dx == ex - fx + gx ? ax * bx + cx : dx - ex + fx;
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Official(int a, int b, int c, int d, int e, int f, int g)
         {
-            return e;
+            var ax = 5 * a;
+            var bx = b + c;
+            var cx = d - e;
+            var dx = f * g;
+            var ex = a + b + c;
+            var fx = d - e + f;
+            var gx = g * a - b;
+            return ax + bx - cx * dx == ex - fx + gx ? ax * bx + cx : dx - ex + fx;
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Mine(int a, int b, int c, int d, int e, int f, int g)
         {
-            return e;
+            var ax = 5 * a;
+            var bx = b + c;
+            var cx = d - e;
+            var dx = f * g;
+            var ex = a + b + c;
+            var fx = d - e + f;
+            var gx = g * a - b;
+            return ax + bx - cx * dx == ex - fx + gx ? ax * bx + cx : dx - ex + fx;
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _MineStatic(int a, int b, int c, int d, int e, int f, int g)
         {
-            return e;
+            var ax = 5 * a;
+            var bx = b + c;
+            var cx = d - e;
+            var dx = f * g;
+            var ex = a + b + c;
+            var fx = d - e + f;
+            var gx = g * a - b;
+            return ax + bx - cx * dx == ex - fx + gx ? ax * bx + cx : dx - ex + fx;
         }
     }
 }

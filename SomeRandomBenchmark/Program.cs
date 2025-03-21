@@ -14,4 +14,5 @@ if (false)
 if (true)
 {
     BenchmarkRunner.Run<TrustJIT_MyEmitDelegate>();
+    BenchmarkRunner.Run<TrustMiniJIT_MyEmitDelegate>();
 }
