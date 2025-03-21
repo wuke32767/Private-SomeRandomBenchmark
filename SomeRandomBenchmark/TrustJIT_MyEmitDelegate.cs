@@ -19,7 +19,7 @@ namespace SomeRandomBenchmark
             return 0;
         }
 
-        ILHook a, b, c,d;
+        ILHook a, b, c, d, e;
         static Basetype wtf = Wtf.Instance.wtf;
         sealed class Wtf
         {
@@ -69,17 +69,36 @@ namespace SomeRandomBenchmark
                     var l = Enumerable.Range(0, 7)
                         .Select(x => new VariableDefinition(ic.Context.Import(typeof(int))))
                         .ToList();
-                    foreach(var item in l)
+                    foreach (var item in l)
                     {
                         ic.Body.Variables.Add(item);
                         ic.EmitStloc(item);
                     }
                     ic.EmitReference(wtf.Target);
-                    foreach(var item in l)
+                    foreach (var item in l)
                     {
                         ic.EmitLdloc(item);
                     }
                     ic.EmitCallvirt(wtf.Method);
+                    ic.EmitRet();
+                }));
+            e = new(typeof(TrustJIT_MyEmitDelegate).GetMethod(nameof(_MineStatic)),
+                manip(ic =>
+                {
+                    var l = Enumerable.Range(0, 7)
+                        .Select(x => new VariableDefinition(ic.Context.Import(typeof(int))))
+                        .ToList();
+                    foreach (var item in l)
+                    {
+                        ic.Body.Variables.Add(item);
+                        ic.EmitStloc(item);
+                    }
+                    ic.EmitLdnull();
+                    foreach (var item in l)
+                    {
+                        ic.EmitLdloc(item);
+                    }
+                    ic.EmitCall(wtf.Method);
                     ic.EmitRet();
                 }));
         }
@@ -104,6 +123,11 @@ namespace SomeRandomBenchmark
         {
             return _Mine(1, 9, 1, 9, 8, 1, 0);
         }
+        [Benchmark]
+        public int MineStatic()
+        {
+            return _MineStatic(1, 9, 1, 9, 8, 1, 0);
+        }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Standard(int a, int b, int c, int d, int e, int f, int g)
         {
@@ -121,6 +145,11 @@ namespace SomeRandomBenchmark
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _Mine(int a, int b, int c, int d, int e, int f, int g)
+        {
+            return e;
+        }
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static int _MineStatic(int a, int b, int c, int d, int e, int f, int g)
         {
             return e;
         }
