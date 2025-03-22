@@ -19,7 +19,7 @@ namespace SomeRandomBenchmark
             return 0;
         }
 
-        ILHook a, b, c, d, e, f;
+        ILHook a, b, c, d, e, f, g;
         static Func<int, int> wtf = Wtf.Instance.wtf;
         sealed class Wtf
         {
@@ -46,6 +46,12 @@ namespace SomeRandomBenchmark
             };
             f = new(typeof(TrustMiniJIT_MyEmitDelegate).GetMethod(nameof(_StandardStatic)), i =>
             {
+            });
+            g = new(typeof(TrustMiniJIT_MyEmitDelegate).GetMethod(nameof(_StandardStaticAnd)), i =>
+            {
+                ILCursor ic = new(i);
+                ic.EmitReference(wtf);
+                ic.EmitPop();
             });
             a = new(typeof(TrustMiniJIT_MyEmitDelegate).GetMethod(nameof(_Standard)), i =>
             {
@@ -94,6 +100,11 @@ namespace SomeRandomBenchmark
             return _StandardStatic(1919810);
         }
         [Benchmark]
+        public int StandardStaticAnd()
+        {
+            return _StandardStaticAnd(1919810);
+        }
+        [Benchmark]
         public int Standard2()
         {
             return _Standard2(1919810);
@@ -127,6 +138,18 @@ namespace SomeRandomBenchmark
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static int _StandardStatic(int a)
+        {
+            var ax = 5 + a;
+            var dx = 3 & a;
+            var bx = 7 * a;
+            var cx = dx % 25;
+            var fx = Wtf.wtfs(a) - ax;
+            var ex = 6 ^ a;
+            var gx = ax + dx + ex;
+            return ax * bx - cx % dx == gx - ex - bx ? fx + cx * dx : ax + gx - 4;
+        }
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static int _StandardStaticAnd(int a)
         {
             var ax = 5 + a;
             var dx = 3 & a;
