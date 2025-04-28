@@ -106,6 +106,16 @@ namespace SomeRandomBenchmark
 
             hook1d = (a, b, c, d, e, f, g) => hook1(a, b, c, d, e, f, g);
         }
+        [Benchmark]
+        public int padding()
+        {
+            return 0;
+        }
+        [Benchmark]
+        public int padding2()
+        {
+            return 0;
+        }
 
         Basetype hook1 = _Hook1;
         Basetype hook1d;

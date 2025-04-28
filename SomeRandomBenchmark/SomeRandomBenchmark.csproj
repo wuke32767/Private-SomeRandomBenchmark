@@ -9,7 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
-    <PackageReference Include="MonoMod.RuntimeDetour" Version="25.2.3" />
+    <!--<PackageReference Include="MonoMod.RuntimeDetour" Version="25.2.3" />-->
+    <PackageReference Include="Mono.Cecil" Version="0.11.6" />
+    <Reference Include="MonoMod.RuntimeDetour"/>
+    <Reference Include="MonoMod.Utils"/>
   </ItemGroup>
 
 </Project>
