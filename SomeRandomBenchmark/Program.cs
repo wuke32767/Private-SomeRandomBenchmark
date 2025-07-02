@@ -10,9 +10,10 @@ if (false)
     BenchmarkRunner.Run<GetTypeBenchmark>();
     BenchmarkRunner.Run<TrustJIT>();
     BenchmarkRunner.Run<TrustMiniJIT>();
+    BenchmarkRunner.Run<TrustJIT_MyEmitDelegate>();
+    BenchmarkRunner.Run<TrustMiniJIT_MyEmitDelegate>();
 }
 if (true)
 {
-    BenchmarkRunner.Run<TrustJIT_MyEmitDelegate>();
-    BenchmarkRunner.Run<TrustMiniJIT_MyEmitDelegate>();
+    BenchmarkRunner.Run<Operators>();
 }
