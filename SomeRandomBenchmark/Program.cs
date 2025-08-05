@@ -1,5 +1,6 @@
 ﻿using SomeRandomBenchmark;
 using BenchmarkDotNet.Running;
+using MiscTests;
 
 #pragma warning disable CS0162
 if (false)
@@ -13,8 +14,9 @@ if (false)
     BenchmarkRunner.Run<TrustJIT_MyEmitDelegate>();
     BenchmarkRunner.Run<TrustMiniJIT_MyEmitDelegate>();
     BenchmarkRunner.Run<Operators>();
+    BenchmarkRunner.Run<TrustJIT_Unbox>();
 }
 if (true)
 {
-    BenchmarkRunner.Run<TrustJIT_Unbox>();
+    BenchmarkRunner.Run<Hitbox>();
 }
