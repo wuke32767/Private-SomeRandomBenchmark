@@ -15,8 +15,9 @@ if (false)
     BenchmarkRunner.Run<TrustMiniJIT_MyEmitDelegate>();
     BenchmarkRunner.Run<Operators>();
     BenchmarkRunner.Run<TrustJIT_Unbox>();
+    BenchmarkRunner.Run<Hitbox>();
 }
 if (true)
 {
-    BenchmarkRunner.Run<Hitbox>();
+    BenchmarkRunner.Run<Eliminated>();
 }
