@@ -16,12 +16,13 @@ namespace SomeRandomBenchmark
         List<ILHook> b = [];
         void ApplyOn(MethodInfo m)
         {
-            a.Add(new(m,
-                 (Func<int, int, int, int, int, int, int, int> orig,
-                int a, int b, int c, int d, int e, int f, int g) =>
+            static int target(Func<int, int, int, int, int, int, int, int> orig,
+                int a, int b, int c, int d, int e, int f, int g)
             {
                 return orig(a, b, c, d, e, f, g);
             }
+            a.Add(new(m,
+                 target
                 ));
         }
         void ApplyIL(MethodInfo m)
