@@ -21,5 +21,5 @@ if (false)
 }
 if (true)
 {
-    BenchmarkRunner.Run<Depth>();
+    BenchmarkRunner.Run<Hate>();
 }
