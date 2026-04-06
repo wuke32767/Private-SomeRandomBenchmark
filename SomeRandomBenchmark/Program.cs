@@ -17,8 +17,9 @@ if (false)
     BenchmarkRunner.Run<TrustJIT_Unbox>();
     BenchmarkRunner.Run<Hitbox>();
     BenchmarkRunner.Run<Eliminated>();
+    BenchmarkRunner.Run<MonoModBenchmark50>();
 }
 if (true)
 {
-    BenchmarkRunner.Run<MonoModBenchmark50>();
+    BenchmarkRunner.Run<Depth>();
 }
